@@ -1,0 +1,37 @@
+{
+  "config_version": "1.0.0",
+  "system": "legacy_his",
+  "tools": {
+    "list_available_reports": {
+      "description": "List the report types the current role may download"
+    },
+    "download_report": {
+      "description": "Start an async export of a management report, returns a job_id"
+    },
+    "get_report_job_status": {
+      "description": "Poll an export job until the file is ready"
+    },
+    "check_claim_status": {
+      "description": "Look up the status of one insurance claim",
+      "data_sensitivity": "high"
+    },
+    "download_billing_statement": {
+      "description": "Start an async export of a patient billing statement",
+      "data_sensitivity": "high"
+    }
+  },
+  "roles": {
+    "reporting_staff": {
+      "allowed_tools": ["list_available_reports", "download_report", "get_report_job_status"],
+      "allowed_report_types": ["monthly_visits", "bed_occupancy", "finance_summary"]
+    },
+    "unit_manager": {
+      "allowed_tools": ["list_available_reports", "download_report", "get_report_job_status", "check_claim_status"],
+      "allowed_report_types": ["*"]
+    },
+    "finance": {
+      "allowed_tools": ["list_available_reports", "download_report", "get_report_job_status", "check_claim_status", "download_billing_statement"],
+      "allowed_report_types": ["finance_summary", "insurance_claims"]
+    }
+  }
+}
